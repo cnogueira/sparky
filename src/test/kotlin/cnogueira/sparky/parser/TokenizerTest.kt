@@ -20,14 +20,14 @@ internal class TokenizerTest {
     }
 
     @Test
-    internal fun `tokenize throws TokenizeException when passing invalid input`() {
+    internal fun `throws TokenizeException when passing invalid input`() {
         invalidInput.forEach {
             assertThrows<TokenizeException>("must trow for '$it'") { tokenizer.tokenize(it) }
         }
     }
 
     @Test
-    internal fun `tokenize recognizes single integer value`() {
+    internal fun `recognizes single integer value`() {
         assertEquals(listOf("1337"), tokenizer.tokenize("1337"))
     }
 

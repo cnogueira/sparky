@@ -5,7 +5,7 @@ import cnogueira.sparky.exceptions.TokenizeException
 class Tokenizer {
 
     private companion object Patterns {
-        private val whitespace = Regex("\\s")
+        private val whitespace = Regex("\\s+")
 
         private val recognizedPatterns = listOf(
             Regex("[1-9]\\d*")
@@ -13,10 +13,12 @@ class Tokenizer {
     }
 
     fun tokenize(input: String): List<String> {
-        if (recognizedPatterns.any { it.matches(input) }) {
-            return listOf(input)
+        val tokens = input.split(whitespace)
+
+        if (tokens.any { token -> recognizedPatterns.none { it.matches(token) } }) {
+            throw TokenizeException("invalid input: '$input'")
         }
 
-        throw TokenizeException("invalid input: '$input'")
+        return tokens
     }
 }
