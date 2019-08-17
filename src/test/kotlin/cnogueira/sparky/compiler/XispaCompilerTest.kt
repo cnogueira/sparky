@@ -20,10 +20,10 @@ internal class XispaCompilerTest {
     lateinit var parsedExpression: Expression
 
     @InjectMockKs
-    var xispa = XispaCompiler()
+    lateinit var xispa: XispaCompiler
 
     @Test
-    fun evaluate() {
+    fun `evaluates single value expressions`() {
         every { parser.parse("2") } returns parsedExpression
         every { parsedExpression.value() } returns 2
 

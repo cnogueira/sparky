@@ -1,7 +1,12 @@
 package cnogueira.sparky.compiler
 
-class XispaCompiler {
+import cnogueira.sparky.parser.Parser
+
+class XispaCompiler(val parser: Parser) {
+
     fun evaluate(input: String): String {
-        TODO("unimplemented")
+        val expression = parser.parse(input)
+
+        return expression.value().toString()
     }
 }

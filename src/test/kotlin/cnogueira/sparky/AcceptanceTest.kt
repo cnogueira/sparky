@@ -1,12 +1,13 @@
 package cnogueira.sparky
 
 import cnogueira.sparky.compiler.XispaCompiler
+import cnogueira.sparky.parser.Parser
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 class AcceptanceTest {
 
-    private val xispa = XispaCompiler()
+    private val xispa = XispaCompiler(Parser())
 
     @Test
     internal fun `can process integer arithmetic`() {
