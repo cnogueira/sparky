@@ -29,7 +29,7 @@ internal class ParserTest {
 
     @Test
     internal fun `parse single integer expression`() {
-        every { tokenizer.tokenize("1337") } returns listOf("1337")
+        every { tokenizer.tokenize("1337") } returns listOf(IntToken(1337))
 
         assertEquals(LiteralExpression(1337), parser.parse("1337"))
     }

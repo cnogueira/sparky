@@ -9,7 +9,10 @@ class Parser(private val tokenizer: Tokenizer) {
         val tokens = tokenizer.tokenize(input)
 
         if (tokens.isNotEmpty()) {
-            return LiteralExpression(Integer.parseInt(tokens.first()))
+            val token = tokens.first()
+            if (token is IntToken) {
+                return LiteralExpression(token.value)
+            }
         }
 
         throw ParseException("Expecting an expression")

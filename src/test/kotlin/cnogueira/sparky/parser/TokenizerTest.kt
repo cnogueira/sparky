@@ -28,11 +28,19 @@ internal class TokenizerTest {
 
     @Test
     internal fun `recognizes single integer value`() {
-        assertEquals(listOf("1337"), tokenizer.tokenize("1337"))
+        val expectedTokenList = listOf(IntToken(1337), NewLineToken())
+        assertEquals(expectedTokenList, tokenizer.tokenize("1337"))
     }
 
     @Test
     internal fun `recognizes multiple integers`() {
-        assertEquals(listOf("1", "2", "3"), tokenizer.tokenize("1 2 3"))
+        val expectedTokenList = listOf(
+            IntToken(1),
+            IntToken(2),
+            IntToken(3),
+            NewLineToken()
+        )
+
+        assertEquals(expectedTokenList, tokenizer.tokenize("1 2 3"))
     }
 }
