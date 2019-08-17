@@ -1,6 +1,7 @@
 package cnogueira.sparky.parser
 
 import cnogueira.sparky.exceptions.TokenizeException
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -23,5 +24,10 @@ internal class TokenizerTest {
         invalidInput.forEach {
             assertThrows<TokenizeException>("must trow for '$it'") { tokenizer.tokenize(it) }
         }
+    }
+
+    @Test
+    internal fun `tokenize recognizes single integer value`() {
+        assertEquals(listOf("1337"), tokenizer.tokenize("1337"))
     }
 }
