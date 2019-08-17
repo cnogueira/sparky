@@ -8,7 +8,7 @@ class Tokenizer {
         private val whitespace = Regex("\\s")
 
         private val recognizedPatterns = listOf(
-            Regex("\\d")
+            Regex("[1-9]\\d*")
         )
     }
 
