@@ -30,4 +30,9 @@ internal class TokenizerTest {
     internal fun `tokenize recognizes single integer value`() {
         assertEquals(listOf("1337"), tokenizer.tokenize("1337"))
     }
+
+    @Test
+    internal fun `recognizes multiple integers`() {
+        assertEquals(listOf("1", "2", "3"), tokenizer.tokenize("1 2 3"))
+    }
 }
