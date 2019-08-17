@@ -21,7 +21,7 @@ internal class TokenizerTest {
     @Test
     internal fun `tokenize throws TokenizeException when passing invalid input`() {
         invalidInput.forEach {
-            assertThrows<TokenizeException> { tokenizer.tokenize(it) }
+            assertThrows<TokenizeException>("must trow for '$it'") { tokenizer.tokenize(it) }
         }
     }
 }
