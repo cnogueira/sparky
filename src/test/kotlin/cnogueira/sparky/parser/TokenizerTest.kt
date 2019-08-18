@@ -72,4 +72,16 @@ internal class TokenizerTest {
 
         assertThat(tokenizer.tokenize(" \t\n\t\t12345")).isEqualTo(expectedTokenList)
     }
+
+    @Test
+    internal fun `recognizes binary sum`() {
+        val expectedTokenList = listOf(
+            IntToken(1, 0, 1, 1),
+            SumBinaryOperatorToken(1, 2),
+            IntToken(1, 4, 1, 2),
+            EofToken(1, 5)
+        )
+
+        assertThat(tokenizer.tokenize("1 + 2")).isEqualTo(expectedTokenList)
+    }
 }

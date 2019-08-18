@@ -65,7 +65,7 @@ class Tokenizer {
             input
         }
 
-        throw TokenizeException("Unrecognized input: $displayableInput")
+        throw TokenizeException("Unrecognized input: '$displayableInput'")
     }
 
     private fun startsWithInteger(input: String) = integer.containsMatchIn(input)

@@ -35,3 +35,5 @@ class WhitespacesToken(lineNumber: Int, start: Int, length: Int, override val va
 class NewLineToken(lineNumber: Int, start: Int) : Token(lineNumber, start, 1, "\\n")
 
 class EofToken(lineNumber: Int, start: Int) : Token(lineNumber, start, 0, "\$")
+
+class SumBinaryOperatorToken(lineNumber: Int, start: Int) : Token(lineNumber, start, 1, "+")
