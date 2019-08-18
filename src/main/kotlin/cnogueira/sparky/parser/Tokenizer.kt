@@ -11,6 +11,7 @@ class Tokenizer {
         val integer = Regex("\\A[1-9]\\d*")
         val newLine = Regex("\\A\\n")
         val binarySumOperator = Regex("\\A\\+")
+        val binaryMultiplicationOperator = Regex("\\A\\*")
     }
 
     fun tokenize(input: String): List<Token> {
@@ -58,12 +59,18 @@ class Tokenizer {
             return BinarySumOperatorToken(lineNumber, start)
         }
 
+        if (nextIsBinaryMultiplicationOperator(input)) {
+            return BinaryMultiplicationOperatorToken(lineNumber, start)
+        }
+
         return throwTokenizeException(input)
     }
 
     private fun nextIsNewLine(input: String) = newLine.containsMatchIn(input)
 
     private fun nextIsBinarySumOperator(input: String) = binarySumOperator.containsMatchIn(input)
+
+    private fun nextIsBinaryMultiplicationOperator(input: String) = binaryMultiplicationOperator.containsMatchIn(input)
 
     private fun throwTokenizeException(input: String): Token {
         val displayableInput = if (input.length > MAX_DISPLAYABLE_INPUT_LENGTH) {
