@@ -37,7 +37,7 @@ internal class XispaCompilerTest {
     @Test
     fun `evaluates single value expressions`() {
         every { lexer.tokenize("2") } returns tokenList
-        every { parser.parse(tokenList) } returns parsedExpression
+        every { parser.parseExpression(tokenList) } returns parsedExpression
         every { parsedExpression.value() } returns 2
 
         assertEquals("2", xispa.evaluate("2"))
@@ -53,7 +53,7 @@ internal class XispaCompilerTest {
     @Test
     internal fun `evaluate throws exception when parser throws exception`() {
         every { lexer.tokenize(any()) } returns tokenList
-        every { parser.parse(any()) } throws ParseException("Expecting Expression")
+        every { parser.parseExpression(any()) } throws ParseException("Expecting Expression")
 
         assertThrows<ParseException> { xispa.evaluate("it really doesn't matter") }
     }
@@ -61,7 +61,7 @@ internal class XispaCompilerTest {
     @Test
     internal fun `evaluate throws if the expression value method throws`() {
         every { lexer.tokenize(any()) } returns tokenList
-        every { parser.parse(any()) } returns parsedExpression
+        every { parser.parseExpression(any()) } returns parsedExpression
         every { parsedExpression.value() } throws ExpressionEvaluationException()
 
         assertThrows<ExpressionEvaluationException> { xispa.evaluate("it really doesn't matter") }
