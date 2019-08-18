@@ -59,7 +59,7 @@ internal class TokenizerTest {
             EofToken(1, 10)
         )
 
-        assertThat(tokenizer.tokenize(" \t \r\t12345")).isEqualTo(expectedTokenList)
+        assertThat(tokenizer.tokenize(" \t \t\t12345")).isEqualTo(expectedTokenList)
     }
 
     @Test
@@ -70,6 +70,6 @@ internal class TokenizerTest {
             EofToken(2, 7)
         )
 
-        assertThat(tokenizer.tokenize(" \t\n\r\t12345")).isEqualTo(expectedTokenList)
+        assertThat(tokenizer.tokenize(" \t\n\t\t12345")).isEqualTo(expectedTokenList)
     }
 }

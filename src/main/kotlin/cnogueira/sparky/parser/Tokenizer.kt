@@ -7,8 +7,9 @@ class Tokenizer {
     private companion object {
         const val MAX_DISPLAYABLE_INPUT_LENGTH = 10
 
-        val whitespace = Regex("\\A\\s+")
+        val whitespace = Regex("\\A[ \\t\\x0B\\f]+")
         val integer = Regex("\\A[1-9]\\d*")
+        val newLine = Regex("\\n")
     }
 
     fun tokenize(input: String): List<Token> {
@@ -20,14 +21,14 @@ class Tokenizer {
         input: String,
         tokenList: MutableList<Token>,
         lineNumber: Int,
-        cursorPosition: Int
+        linePosition: Int
     ): List<Token> {
 
         if (input.isEmpty()) {
-            return returnTokenListWithEof(tokenList, lineNumber, cursorPosition)
+            return returnTokenListWithEof(tokenList, lineNumber, linePosition)
         }
 
-        val nextToken: Token = parseNextToken(input, lineNumber, cursorPosition)
+        val nextToken: Token = parseNextToken(input, lineNumber, linePosition)
 
         tokenList.add(nextToken)
 
@@ -35,21 +36,27 @@ class Tokenizer {
             input.substring(nextToken.length),
             tokenList,
             if (nextToken is NewLineToken) lineNumber + 1 else lineNumber,
-            cursorPosition + nextToken.length
+            if (nextToken is NewLineToken) 0 else linePosition + nextToken.length
         )
     }
 
-    private fun parseNextToken(input: String, lineNumber: Int, cursorPosition: Int): Token {
+    private fun parseNextToken(input: String, lineNumber: Int, start: Int): Token {
         if (startsWithWhitespaces(input)) {
-            return parseWhitespacesToken(input, lineNumber, cursorPosition)
+            return parseWhitespacesToken(input, lineNumber, start)
         }
 
         if (startsWithInteger(input)) {
-            return parseIntToken(input, lineNumber, cursorPosition)
+            return parseIntToken(input, lineNumber, start)
+        }
+
+        if (nextIsNewLine(input)) {
+            return NewLineToken(lineNumber, start)
         }
 
         return throwTokenizeException(input)
     }
+
+    private fun nextIsNewLine(input: String) = newLine.containsMatchIn(input)
 
     private fun throwTokenizeException(input: String): Token {
         val displayableInput = if (input.length > MAX_DISPLAYABLE_INPUT_LENGTH) {
