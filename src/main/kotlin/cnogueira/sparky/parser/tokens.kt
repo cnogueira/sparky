@@ -29,6 +29,9 @@ abstract class Token(val lineNumber: Int, val start: Int, val length: Int, open 
 class IntToken(lineNumber: Int, start: Int, length: Int, override val value: Int) :
     Token(lineNumber, start, length, value)
 
+class WhitespacesToken(lineNumber: Int, start: Int, length: Int, override val value: String) :
+    Token(lineNumber, start, length, value)
+
 class NewLineToken(lineNumber: Int, start: Int) : Token(lineNumber, start, 1, "\n")
 
 class EofToken(lineNumber: Int, start: Int) : Token(lineNumber, start, 0, "\$")

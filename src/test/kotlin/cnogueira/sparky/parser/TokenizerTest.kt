@@ -1,10 +1,12 @@
 package cnogueira.sparky.parser
 
+import assertk.assertThat
+import assertk.assertions.isEqualTo
+import assertk.assertions.isFailure
+import assertk.assertions.isInstanceOf
 import cnogueira.sparky.exceptions.TokenizeException
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 
 internal class TokenizerTest {
 
@@ -22,7 +24,9 @@ internal class TokenizerTest {
     @Test
     internal fun `throws TokenizeException when passing invalid input`() {
         invalidInput.forEach {
-            assertThrows<TokenizeException>("must trow for '$it'") { tokenizer.tokenize(it) }
+            assertThat { tokenizer.tokenize(it) }
+                .isFailure()
+                .isInstanceOf(TokenizeException::class)
         }
     }
 
@@ -33,7 +37,7 @@ internal class TokenizerTest {
             EofToken(1, 4)
         )
 
-        assertEquals(expectedTokenList, tokenizer.tokenize("1337"))
+        assertThat(tokenizer.tokenize("1337")).isEqualTo(expectedTokenList)
     }
 
     @Test
@@ -45,6 +49,6 @@ internal class TokenizerTest {
             EofToken(1, 5)
         )
 
-        assertEquals(expectedTokenList, tokenizer.tokenize("1 2 3"))
+        assertThat(tokenizer.tokenize("1 2 3")).isEqualTo(expectedTokenList)
     }
 }
