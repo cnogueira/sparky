@@ -84,4 +84,16 @@ internal class TokenizerTest {
 
         assertThat(tokenizer.tokenize("1 + 2")).isEqualTo(expectedTokenList)
     }
+
+    @Test
+    internal fun `recognizes binary multiplication`() {
+        val expectedTokenList = listOf(
+            IntToken(1, 0, 1, 1),
+            BinaryMultiplicationOperatorToken(1, 2),
+            IntToken(1, 4, 1, 2),
+            EofToken(1, 5)
+        )
+
+        assertThat(tokenizer.tokenize("1 * 2")).isEqualTo(expectedTokenList)
+    }
 }

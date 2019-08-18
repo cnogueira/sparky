@@ -37,3 +37,5 @@ class NewLineToken(lineNumber: Int, start: Int) : Token(lineNumber, start, 1, "\
 class EofToken(lineNumber: Int, start: Int) : Token(lineNumber, start, 0, "\$")
 
 class BinarySumOperatorToken(lineNumber: Int, start: Int) : Token(lineNumber, start, 1, "+")
+
+class BinaryMultiplicationOperatorToken(lineNumber: Int, start: Int) : Token(lineNumber, start, 1, "*")
