@@ -77,7 +77,7 @@ internal class TokenizerTest {
     internal fun `recognizes binary sum`() {
         val expectedTokenList = listOf(
             IntToken(1, 0, 1, 1),
-            SumBinaryOperatorToken(1, 2),
+            BinarySumOperatorToken(1, 2),
             IntToken(1, 4, 1, 2),
             EofToken(1, 5)
         )
