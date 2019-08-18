@@ -1,10 +1,11 @@
 package cnogueira.sparky.parser
 
 import cnogueira.sparky.exceptions.ParseException
+import cnogueira.sparky.grammar.BinaryMultExpression
 import cnogueira.sparky.grammar.BinarySumExpression
 import cnogueira.sparky.grammar.Expression
 import cnogueira.sparky.grammar.LiteralExpression
-import cnogueira.sparky.lexer.BinaryMultiplicationOperatorToken
+import cnogueira.sparky.lexer.BinaryMultOperatorToken
 import cnogueira.sparky.lexer.BinarySumOperatorToken
 import cnogueira.sparky.lexer.IntToken
 import cnogueira.sparky.lexer.Token
@@ -27,7 +28,7 @@ class Parser {
             return literalExpression
         }
 
-        if (tokens[1] is BinaryMultiplicationOperatorToken) {
+        if (tokens[1] is BinaryMultOperatorToken) {
             return parseMultExpression(literalExpression, tokens.drop(2))
         }
 
@@ -43,7 +44,7 @@ class Parser {
     }
 
     private fun parseMultExpression(leftExpr: Expression, tokens: List<Token>): Expression {
-        TODO("unimplemented")
+        return BinaryMultExpression(leftExpr, parseExpression(tokens))
     }
 
     private fun throwParseExceptionForUnexpectedToken(token: Token): Expression {

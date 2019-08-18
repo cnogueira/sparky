@@ -11,7 +11,7 @@ class Lexer {
         val integer = Regex("\\A[1-9]\\d*")
         val newLine = Regex("\\A\\n")
         val binarySumOperator = Regex("\\A\\+")
-        val binaryMultiplicationOperator = Regex("\\A\\*")
+        val binaryMultOperator = Regex("\\A\\*")
     }
 
     fun tokenize(input: String): List<Token> {
@@ -59,8 +59,8 @@ class Lexer {
             return BinarySumOperatorToken(lineNumber, start)
         }
 
-        if (nextIsBinaryMultiplicationOperator(input)) {
-            return BinaryMultiplicationOperatorToken(lineNumber, start)
+        if (nextIsBinaryMultOperator(input)) {
+            return BinaryMultOperatorToken(lineNumber, start)
         }
 
         return throwTokenizeException(input)
@@ -70,7 +70,7 @@ class Lexer {
 
     private fun nextIsBinarySumOperator(input: String) = binarySumOperator.containsMatchIn(input)
 
-    private fun nextIsBinaryMultiplicationOperator(input: String) = binaryMultiplicationOperator.containsMatchIn(input)
+    private fun nextIsBinaryMultOperator(input: String) = binaryMultOperator.containsMatchIn(input)
 
     private fun throwTokenizeException(input: String): Token {
         val displayableInput = if (input.length > MAX_DISPLAYABLE_INPUT_LENGTH) {

@@ -6,8 +6,10 @@ import assertk.assertions.isEqualTo
 import assertk.assertions.isFailure
 import assertk.assertions.isInstanceOf
 import cnogueira.sparky.exceptions.ParseException
+import cnogueira.sparky.grammar.BinaryMultExpression
 import cnogueira.sparky.grammar.BinarySumExpression
 import cnogueira.sparky.grammar.LiteralExpression
+import cnogueira.sparky.lexer.BinaryMultOperatorToken
 import cnogueira.sparky.lexer.BinarySumOperatorToken
 import cnogueira.sparky.lexer.IntToken
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -52,6 +54,22 @@ internal class ParserTest {
         )
 
         val expectedExpression = BinarySumExpression(
+            left = LiteralExpression(12),
+            right = LiteralExpression(7)
+        )
+
+        assertThat(parser.parseExpression(tokenList)).isEqualTo(expectedExpression)
+    }
+
+    @Test
+    internal fun `parses binary multiplication expression`() {
+        val tokenList = listOf(
+            IntToken(1, 0, 2, 12),
+            BinaryMultOperatorToken(1, 3),
+            IntToken(1, 5, 1, 7)
+        )
+
+        val expectedExpression = BinaryMultExpression(
             left = LiteralExpression(12),
             right = LiteralExpression(7)
         )

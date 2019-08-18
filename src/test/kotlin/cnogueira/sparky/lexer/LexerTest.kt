@@ -89,7 +89,7 @@ internal class LexerTest {
     internal fun `recognizes binary multiplication`() {
         val expectedTokenList = listOf(
             IntToken(1, 0, 1, 1),
-            BinaryMultiplicationOperatorToken(1, 2),
+            BinaryMultOperatorToken(1, 2),
             IntToken(1, 4, 1, 2),
             EofToken(1, 5)
         )
