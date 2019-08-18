@@ -51,4 +51,25 @@ internal class TokenizerTest {
 
         assertThat(tokenizer.tokenize("1 2 3")).isEqualTo(expectedTokenList)
     }
+
+    @Test
+    internal fun `ignores all sorts of whitespaces`() {
+        val expectedTokenList = listOf(
+            IntToken(1, 5, 5, 12345),
+            EofToken(1, 10)
+        )
+
+        assertThat(tokenizer.tokenize(" \t \r\t12345")).isEqualTo(expectedTokenList)
+    }
+
+    @Test
+    internal fun `it does not ignore new lines`() {
+        val expectedTokenList = listOf(
+            NewLineToken(1, 2),
+            IntToken(2, 2, 5, 12345),
+            EofToken(2, 7)
+        )
+
+        assertThat(tokenizer.tokenize(" \t\n\r\t12345")).isEqualTo(expectedTokenList)
+    }
 }

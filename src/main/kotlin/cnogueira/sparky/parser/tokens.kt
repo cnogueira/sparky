@@ -30,8 +30,8 @@ class IntToken(lineNumber: Int, start: Int, length: Int, override val value: Int
     Token(lineNumber, start, length, value)
 
 class WhitespacesToken(lineNumber: Int, start: Int, length: Int, override val value: String) :
-    Token(lineNumber, start, length, value)
+    Token(lineNumber, start, length, value.map { '-' })
 
-class NewLineToken(lineNumber: Int, start: Int) : Token(lineNumber, start, 1, "\n")
+class NewLineToken(lineNumber: Int, start: Int) : Token(lineNumber, start, 1, "\\n")
 
 class EofToken(lineNumber: Int, start: Int) : Token(lineNumber, start, 0, "\$")
