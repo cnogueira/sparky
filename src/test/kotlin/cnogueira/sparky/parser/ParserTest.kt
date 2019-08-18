@@ -76,4 +76,25 @@ internal class ParserTest {
 
         assertThat(parser.parseExpression(tokenList)).isEqualTo(expectedExpression)
     }
+
+    @Test
+    internal fun `mult has precedence over sum operator`() {
+        val tokenList = listOf(
+            IntToken(1, 0, 2, 12),
+            BinaryMultOperatorToken(1, 3),
+            IntToken(1, 5, 1, 7),
+            BinarySumOperatorToken(1, 7),
+            IntToken(1, 9, 3, 200)
+        )
+
+        val expectedExpression = BinarySumExpression(
+            left = BinaryMultExpression(
+                left = LiteralExpression(12),
+                right = LiteralExpression(7)
+            ),
+            right = LiteralExpression(200)
+        )
+
+        assertThat(parser.parseExpression(tokenList)).isEqualTo(expectedExpression)
+    }
 }
