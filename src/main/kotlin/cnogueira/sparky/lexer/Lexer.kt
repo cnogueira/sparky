@@ -1,8 +1,8 @@
-package cnogueira.sparky.parser
+package cnogueira.sparky.lexer
 
 import cnogueira.sparky.exceptions.TokenizeException
 
-class Tokenizer {
+class Lexer {
 
     private companion object {
         const val MAX_DISPLAYABLE_INPUT_LENGTH = 10

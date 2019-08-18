@@ -1,11 +1,13 @@
 package cnogueira.sparky.compiler
 
+import cnogueira.sparky.lexer.Lexer
 import cnogueira.sparky.parser.Parser
 
-class XispaCompiler(val parser: Parser) {
+class XispaCompiler(private val lexer: Lexer, private val parser: Parser) {
 
     fun evaluate(input: String): String {
-        val expression = parser.parse(input)
+        val tokens = lexer.tokenize(input)
+        val expression = parser.parse(tokens)
 
         return expression.value().toString()
     }

@@ -1,4 +1,4 @@
-package cnogueira.sparky.parser
+package cnogueira.sparky.lexer
 
 abstract class Token(val lineNumber: Int, val start: Int, val length: Int, open val value: Any) {
     override fun equals(other: Any?): Boolean {

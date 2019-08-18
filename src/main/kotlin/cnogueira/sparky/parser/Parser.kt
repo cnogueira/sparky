@@ -3,10 +3,11 @@ package cnogueira.sparky.parser
 import cnogueira.sparky.exceptions.ParseException
 import cnogueira.sparky.grammar.Expression
 import cnogueira.sparky.grammar.LiteralExpression
+import cnogueira.sparky.lexer.IntToken
+import cnogueira.sparky.lexer.Token
 
-class Parser(private val tokenizer: Tokenizer) {
-    fun parse(input: String): Expression {
-        val tokens = tokenizer.tokenize(input)
+class Parser {
+    fun parse(tokens: List<Token>): Expression {
 
         if (tokens.isNotEmpty()) {
             val token = tokens.first()

@@ -1,4 +1,4 @@
-package cnogueira.sparky.parser
+package cnogueira.sparky.lexer
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
@@ -8,23 +8,23 @@ import cnogueira.sparky.exceptions.TokenizeException
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-internal class TokenizerTest {
+internal class LexerTest {
 
     private val invalidInput = listOf(
         "a12b", "1home", "1234.5789b", "15.", "01", "10_0", "10_00", "10_0000", ".2.3", "1.2.3"
     )
 
-    lateinit var tokenizer: Tokenizer
+    lateinit var lexer: Lexer
 
     @BeforeEach
     internal fun setUp() {
-        tokenizer = Tokenizer()
+        lexer = Lexer()
     }
 
     @Test
     internal fun `throws TokenizeException when passing invalid input`() {
         invalidInput.forEach {
-            assertThat { tokenizer.tokenize(it) }
+            assertThat { lexer.tokenize(it) }
                 .isFailure()
                 .isInstanceOf(TokenizeException::class)
         }
@@ -37,7 +37,7 @@ internal class TokenizerTest {
             EofToken(1, 4)
         )
 
-        assertThat(tokenizer.tokenize("1337")).isEqualTo(expectedTokenList)
+        assertThat(lexer.tokenize("1337")).isEqualTo(expectedTokenList)
     }
 
     @Test
@@ -49,7 +49,7 @@ internal class TokenizerTest {
             EofToken(1, 5)
         )
 
-        assertThat(tokenizer.tokenize("1 2 3")).isEqualTo(expectedTokenList)
+        assertThat(lexer.tokenize("1 2 3")).isEqualTo(expectedTokenList)
     }
 
     @Test
@@ -59,7 +59,7 @@ internal class TokenizerTest {
             EofToken(1, 10)
         )
 
-        assertThat(tokenizer.tokenize(" \t \t\t12345")).isEqualTo(expectedTokenList)
+        assertThat(lexer.tokenize(" \t \t\t12345")).isEqualTo(expectedTokenList)
     }
 
     @Test
@@ -70,7 +70,7 @@ internal class TokenizerTest {
             EofToken(2, 7)
         )
 
-        assertThat(tokenizer.tokenize(" \t\n\t\t12345")).isEqualTo(expectedTokenList)
+        assertThat(lexer.tokenize(" \t\n\t\t12345")).isEqualTo(expectedTokenList)
     }
 
     @Test
@@ -82,7 +82,7 @@ internal class TokenizerTest {
             EofToken(1, 5)
         )
 
-        assertThat(tokenizer.tokenize("1 + 2")).isEqualTo(expectedTokenList)
+        assertThat(lexer.tokenize("1 + 2")).isEqualTo(expectedTokenList)
     }
 
     @Test
@@ -94,6 +94,6 @@ internal class TokenizerTest {
             EofToken(1, 5)
         )
 
-        assertThat(tokenizer.tokenize("1 * 2")).isEqualTo(expectedTokenList)
+        assertThat(lexer.tokenize("1 * 2")).isEqualTo(expectedTokenList)
     }
 }
